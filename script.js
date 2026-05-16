@@ -8,7 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCategories();
     renderGrid();
     updateLiveCounter();
+    renderTopCategories();
 });
+
+function renderTopCategories() {
+    const el = document.getElementById('topCategories');
+    if (!el) return;
+    el.innerHTML = CATEGORIES.filter(c => c.id !== 'all').map(c =>
+        `<a href="#" onclick="setCategory('${c.id}');return false">${c.icon} ${c.label}</a>`
+    ).join('');
+}
+
+function setCategory(catId) {
+    activeCat = catId;
+    const btns = document.querySelectorAll('.cat-btn');
+    btns.forEach(b => b.classList.toggle('active', b.dataset.cat === catId));
+    filterTools();
+    document.getElementById('searchInput').focus();
+    document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+}
 
 function updateLiveCounter() {
     const el = document.getElementById('liveCounter');
