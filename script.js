@@ -64,9 +64,9 @@ function openTool(id) {
             <h2>${tool.icon} ${tool.title}</h2>
             <p>${tool.desc}</p>
         </div>
-        <div class="ad-placeholder"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins></div></div>
+        <div class="ad-placeholder"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="5087169124" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins></div></div>
         <div class="tool-body" id="toolBody"></div>
-        <div class="ad-placeholder" style="margin-top:20px"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins></div></div>
+        <div class="ad-placeholder" style="margin-top:20px"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="5087169124" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins></div></div>
     `;
     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
@@ -393,7 +393,7 @@ function urlDecode() {
 // ============ QR ============
 function qrGen() {
     $html(`
-        <div class="form-group"><label>Metin / URL</label><input type="text" id="qrInp" placeholder="https://" value="https://tunadiyebiri.github.io" oninput="qrDo()"></div>
+        <div class="form-group"><label>Metin / URL</label><input type="text" id="qrInp" placeholder="https://" value="https://arackutusu.github.io" oninput="qrDo()"></div>
         <button class="btn" onclick="qrDo()">Oluştur</button>
         <div id="qrBox" style="margin-top:16px;text-align:center;min-height:200px;display:flex;align-items:center;justify-content:center"></div>
     `);
