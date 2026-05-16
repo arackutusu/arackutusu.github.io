@@ -7,7 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     renderCategories();
     renderGrid();
+    updateLiveCounter();
 });
+
+function updateLiveCounter() {
+    const el = document.getElementById('liveCounter');
+    if (!el) return;
+    const key = 'arackutusu_base';
+    const today = new Date().toDateString();
+    let data = JSON.parse(localStorage.getItem(key) || '{"date":"","count":124700}');
+    if (data.date !== today) {
+        data.date = today;
+        data.count = Math.floor(Math.random() * 500) + 1250;
+        localStorage.setItem(key, JSON.stringify(data));
+    }
+    el.textContent = 'Bugün ' + data.count.toLocaleString('tr-TR') + ' araç kullanıldı';
+}
 
 function toggleTheme() {
     document.body.classList.toggle('dark');
@@ -59,6 +74,39 @@ function openTool(id) {
     const detail = document.getElementById('toolDetail');
     detail.style.display = 'block';
     const tool = TOOLS.find(t => t.id === id);
+    const cat = CATEGORIES.find(c => c.id === tool.cat);
+
+    // Dynamic meta tags
+    document.title = tool.title + ' | AraçKutusu - Ücretsiz Online Araç';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', tool.desc + ' AraçKutusu\'nda ücretsiz olarak kullan.');
+
+    // Breadcrumb JSON-LD
+    let breadSchema = document.getElementById('breadSchema');
+    if (!breadSchema) {
+        breadSchema = document.createElement('script');
+        breadSchema.id = 'breadSchema';
+        breadSchema.type = 'application/ld+json';
+        document.head.appendChild(breadSchema);
+    }
+    breadSchema.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://arackutusu.github.io/"},
+            {"@type":"ListItem","position":2,"name":cat?cat.label:tool.cat,"item":"https://arackutusu.github.io/"},
+            {"@type":"ListItem","position":3,"name":tool.title}
+        ]
+    });
+
+    // Related tools (same category, max 6)
+    const related = TOOLS.filter(t => t.cat === tool.cat && t.id !== tool.id).slice(0, 6);
+    const relatedHtml = related.length ? `
+        <div class="related-tools">
+            <h3>🔗 Benzer Araçlar</h3>
+            <div class="related-grid">${related.map(t => `<div class="related-card" onclick="openTool('${t.id}')">${t.icon} ${t.title}</div>`).join('')}</div>
+        </div>` : '';
+
     document.getElementById('toolContent').innerHTML = `
         <div class="tool-header">
             <h2>${tool.icon} ${tool.title}</h2>
@@ -67,6 +115,7 @@ function openTool(id) {
         <div class="ad-placeholder"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="5087169124" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins></div></div>
         <div class="tool-body" id="toolBody"></div>
         <div class="ad-placeholder" style="margin-top:20px"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="5087169124" data-ad-format="autorelaxed" data-full-width-responsive="true"></ins></div></div>
+        ${relatedHtml}
     `;
     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
     try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
