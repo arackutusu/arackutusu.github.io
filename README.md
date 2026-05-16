@@ -66,15 +66,6 @@ Hiçbir kurulum gerekmez — direkt çalışır.
 - Dinamik sayfa başlığı ve meta açıklama (her araç için benzersiz)
 - Open Graph ve Twitter Card meta etiketleri
 
-## 💰 Para Kazanma
-
-Site Google AdSense için optimize edilmiştir. Reklam yerleşimleri:
-- Ana sayfa üst ve alt
-- Her araç sayfası üst ve alt
-- Multiplex (autorelaxed) formatı
-
-AdSense onayı aldıktan sonra reklamlar otomatik görüntülenmeye başlar.
-
 ## ⚡ Performans
 
 - Preconnect ve DNS-prefetch optimizasyonları
