@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KANKA GANG</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Inter:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            user-select: none;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 5rem;
+            background: linear-gradient(135deg, #ffd700, #ff6b35, #ff0050, #ffd700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 60px rgba(255,107,53,0.3);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255,215,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 500px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .music-btn {
+            padding: 16px 48px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            color: #0a0a0a;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 40px rgba(255,107,53,0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(255,107,53,0.5);
+        }
+
+        .music-btn.playing {
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 40px rgba(255,107,53,0.3); }
+            50% { box-shadow: 0 0 80px rgba(255,215,0,0.6); }
+            100% { box-shadow: 0 0 40px rgba(255,107,53,0.3); }
+        }
+
+        .status {
+            margin-top: 24px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+
+        .eq-bar {
+            display: flex;
+            gap: 4px;
+            align-items: flex-end;
+            height: 30px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .eq-bar.active { opacity: 1; }
+        .eq-bar span {
+            width: 4px;
+            background: linear-gradient(to top, #ffd700, #ff6b35);
+            border-radius: 2px;
+            animation: eq 0.8s ease infinite alternate;
+        }
+        .eq-bar span:nth-child(1) { height: 10px; animation-delay: 0s; }
+        .eq-bar span:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+        .eq-bar span:nth-child(3) { height: 15px; animation-delay: 0.2s; }
+        .eq-bar span:nth-child(4) { height: 25px; animation-delay: 0.3s; }
+        .eq-bar span:nth-child(5) { height: 12px; animation-delay: 0.15s; }
+        .eq-bar span:nth-child(6) { height: 22px; animation-delay: 0.25s; }
+        .eq-bar span:nth-child(7) { height: 18px; animation-delay: 0.35s; }
+
+        @keyframes eq {
+            0% { transform: scaleY(0.5); }
+            100% { transform: scaleY(1); }
+        }
+
+        .glow-text {
+            position: absolute;
+            bottom: 40px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.15);
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; }
+            .subtitle { font-size: 0.9rem; letter-spacing: 4px; }
+            .music-btn { padding: 14px 32px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="canvas-container"></div>
+    <div class="overlay">
+        <h1>KANKA</h1>
+        <div class="subtitle">&#9773; GANG &#9773;</div>
+        <p class="tagline">Kanka burası senin yerin. Rahatla, 3D evrene dal ve gangsta vibe'ı hisset.</p>
+        <button class="music-btn" id="musicBtn">&#9654; MÜZİĞİ AÇ</button>
+        <div class="eq-bar" id="eqBar">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="status" id="status">Müzik otomatik başlamazsa butona tıkla</div>
+        <div class="glow-text">#KANKA GANG</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // ========== 3D BACKGROUND ==========
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        // Particles
+        const particleCount = 3000;
+        const positions = new Float32Array(particleCount * 3);
+        const colors = new Float32Array(particleCount * 3);
+        const sizes = new Float32Array(particleCount);
+
+        for (let i = 0; i < particleCount; i++) {
+            positions[i*3] = (Math.random() - 0.5) * 50;
+            positions[i*3+1] = (Math.random() - 0.5) * 50;
+            positions[i*3+2] = (Math.random() - 0.5) * 50;
+            
+            const color = new THREE.Color();
+            color.setHSL(0.08 + Math.random() * 0.1, 1, 0.5 + Math.random() * 0.3);
+            colors[i*3] = color.r;
+            colors[i*3+1] = color.g;
+            colors[i*3+2] = color.b;
+            
+            sizes[i] = Math.random() * 3 + 0.5;
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.08,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.9,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: true
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        // Central glowing torus
+        const torusGeo = new THREE.TorusKnotGeometry(2, 0.6, 128, 16);
+        const torusMat = new THREE.MeshBasicMaterial({
+            color: 0xff6b35,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const torus = new THREE.Mesh(torusGeo, torusMat);
+        scene.add(torus);
+
+        // Inner glow ring
+        const ringGeo = new THREE.RingGeometry(1.8, 2.2, 64);
+        const ringMat = new THREE.MeshBasicMaterial({
+            color: 0xffd700,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.08
+        });
+        const ring = new THREE.Mesh(ringGeo, ringMat);
+        scene.add(ring);
+
+        // Floating orbs
+        const orbs = [];
+        for (let i = 0; i < 8; i++) {
+            const orbGeo = new THREE.SphereGeometry(0.1 + Math.random() * 0.15, 16, 16);
+            const orbMat = new THREE.MeshBasicMaterial({
+                color: new THREE.Color().setHSL(0.08 + Math.random() * 0.1, 1, 0.6),
+                transparent: true,
+                opacity: 0.4
+            });
+            const orb = new THREE.Mesh(orbGeo, orbMat);
+            const angle = (i / 8) * Math.PI * 2;
+            const radius = 3 + Math.random() * 2;
+            orb.userData = {
+                angle: angle,
+                radius: radius,
+                speed: 0.2 + Math.random() * 0.3,
+                yOffset: (Math.random() - 0.5) * 4,
+                ySpeed: 0.3 + Math.random() * 0.5
+            };
+            orb.position.x = Math.cos(angle) * radius;
+            orb.position.z = Math.sin(angle) * radius;
+            orb.position.y = orb.userData.yOffset;
+            scene.add(orb);
+            orbs.push(orb);
+        }
+
+        camera.position.z = 8;
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // ========== AUDIO ==========
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+        const eqBar = document.getElementById('eqBar');
+        const statusEl = document.getElementById('status');
+
+        // Generate a gangsta beat using Web Audio API (synth beat)
+        function createBeat() {
+            const sampleRate = audioCtx.sampleRate;
+            const totalDuration = 8;
+            const bufferSize = sampleRate * totalDuration;
+            const buffer = audioCtx.createBuffer(1, bufferSize, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            const bpm = 92;
+            const beatInterval = 60 / bpm;
+            const beatSamples = beatInterval * sampleRate;
+
+            for (let i = 0; i < bufferSize; i++) {
+                const t = i / sampleRate;
+                let sample = 0;
+
+                // Kick drum
+                const beatPos = (t % beatInterval) / beatInterval;
+                if (beatPos < 0.15) {
+                    const env = Math.exp(-beatPos * 40);
+                    const freq = 60 + (1 - beatPos / 0.15) * 90;
+                    sample += Math.sin(2 * Math.PI * freq * t) * env * 0.4;
+                    sample += (Math.random() * 2 - 1) * env * 0.1;
+                }
+
+                // Hi-hat (offbeat)
+                if (beatPos > 0.45 && beatPos < 0.5) {
+                    const env = Math.exp(-(beatPos - 0.45) * 80);
+                    sample += (Math.random() * 2 - 1) * env * 0.15;
+                }
+                if (beatPos > 0.95 && beatPos < 1.0) {
+                    const env = Math.exp(-(beatPos - 0.95) * 80);
+                    sample += (Math.random() * 2 - 1) * env * 0.12;
+                }
+
+                // Snare (every 2nd beat)
+                const beat2 = Math.floor(t / beatInterval);
+                if (beat2 % 2 === 1 && beatPos > 0.0 && beatPos < 0.2) {
+                    const env = Math.exp(-beatPos * 30);
+                    sample += (Math.random() * 2 - 1) * env * 0.25;
+                }
+
+                // Bass line
+                const bassNotes = [55, 55, 65.41, 55, 73.42, 73.42, 65.41, 55];
+                const noteIdx = Math.floor(t / 0.5) % bassNotes.length;
+                const freqNote = bassNotes[noteIdx];
+                const bassEnv = 0.3 + 0.7 * Math.sin(t * 4);
+                sample += Math.sin(2 * Math.PI * freqNote * t) * 0.08 * bassEnv;
+                sample += Math.sin(2 * Math.PI * freqNote * 0.5 * t) * 0.04 * bassEnv;
+
+                data[i] = Math.max(-1, Math.min(1, sample * 0.7));
+            }
+            return buffer;
+        }
+
+        let source = null;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                if (source) {
+                    try { source.stop(); } catch(e) {}
+                }
+                audioCtx.suspend();
+                isPlaying = false;
+                musicBtn.innerHTML = '&#9654; MÜZİĞİ AÇ';
+                musicBtn.classList.remove('playing');
+                eqBar.classList.remove('active');
+                statusEl.textContent = 'Müzik durdu';
+            } else {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                
+                const buffer = createBeat();
+                source = audioCtx.createBufferSource();
+                source.buffer = buffer;
+                source.loop = true;
+                source.connect(audioCtx.destination);
+                source.start(0);
+                
+                isPlaying = true;
+                musicBtn.innerHTML = '&#9646;&#9646; MÜZİĞİ DURDUR';
+                musicBtn.classList.add('playing');
+                eqBar.classList.add('active');
+                statusEl.textContent = '🎵 Gangsta beat çalıyor...';
+            }
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+
+        // Auto-start on first interaction
+        const startAudio = () => {
+            if (!isPlaying) {
+                toggleMusic();
+            }
+            document.removeEventListener('click', startAudio);
+            document.removeEventListener('touchstart', startAudio);
+        };
+        document.addEventListener('click', startAudio);
+        document.addEventListener('touchstart', startAudio);
+
+        // ========== ANIMATION LOOP ==========
+        let clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsed = clock.getElapsedTime();
+
+            // Rotate particle field
+            particles.rotation.x = Math.sin(elapsed * 0.05) * 0.2;
+            particles.rotation.y += 0.001;
+            particles.rotation.z = Math.sin(elapsed * 0.03) * 0.1;
+
+            // Rotate torus
+            torus.rotation.x += 0.005;
+            torus.rotation.y += 0.01;
+
+            // Rotate ring
+            ring.rotation.x = Math.sin(elapsed * 0.1) * 0.3;
+            ring.rotation.y += 0.02;
+
+            // Animate orbs
+            orbs.forEach((orb) => {
+                orb.userData.angle += orb.userData.speed * 0.01;
+                orb.position.x = Math.cos(orb.userData.angle + elapsed * 0.3) * orb.userData.radius;
+                orb.position.z = Math.sin(orb.userData.angle + elapsed * 0.3) * orb.userData.radius;
+                orb.position.y = orb.userData.yOffset + Math.sin(elapsed * orb.userData.ySpeed) * 1.5;
+            });
+
+            // Mouse follow
+            camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.02;
+            camera.position.y += (mouseY * 1.5 - camera.position.y) * 0.02;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // ========== RESIZE ==========
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

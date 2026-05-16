@@ -1,57 +1,92 @@
-# AraçKutusu - Ücretsiz Online Araçlar
+# 🧰 AraçKutusu — 1000+ Ücretsiz Online Araç
 
-10+ kullanışlı online araç içeren, AdSense ile para kazandıracak statik web sitesi.
+**AraçKutusu**, günlük işlerinizi hızlıca halletmeniz için **1000'den fazla ücretsiz online aracı** bir araya getiren bir web uygulamasıdır. Hiçbir kayıt gerektirmez, tamamen tarayıcınızda çalışır.
 
-## İçindeki Araçlar
-- Karakter/Kelime Sayacı
-- Şifre Oluşturucu
-- QR Kod Oluşturucu
-- Birim Dönüştürücü
-- Metin Dönüştürücü
-- Yaş Hesaplayıcı
-- Rastgele Sayı Üretici
-- JSON Formatlayıcı
-- Base64 Dönüştürücü
-- Renk Paleti Oluşturucu
+🌐 **Canlı:** [arackutusu.github.io](https://arackutusu.github.io/)
 
-## Para Kazanma Yöntemi
-1. Google AdSense'e başvur
-2. `index.html` içindeki `ad-placeholder` div'lerine AdSense kodlarını yerleştir
-3. SEO için meta etiketler hazır (başlık, description, keywords)
-4. Trafik çekmek için sosyal medyada ve forumlarda paylaş
+---
 
-## Deploy (Ücretsiz)
+## ✨ Özellikler
 
-### GitHub Pages
-```bash
-git init
-git add .
-git commit -m "ilk commit"
-# GitHub'da repo oluştur, sonra:
-git remote add origin https://github.com/kullanici/repo-adi.git
-git branch -M main
-git push -u origin main
-# Settings > Pages > Branch: main > / (root) > Kaydet
-# https://kullanici.github.io/repo-adi/ adresinde yayında
+- **1000+ Araç** — Birim çeviriciden şifre oluşturucuya, QR koddan BMI hesaplayıcıya kadar her şey
+- **20+ Kategori** — Dönüştürücü, hesaplama, metin, güvenlik, kodlama, renk, finans, eğitim, sağlık ve daha fazlası
+- **Karanlık/Aydınlık Mod** — Göz yormayan temalar
+- **Hızlı Arama** — Aradığın aracı anında bul
+- **Tamamen Ücretsiz** — Kayıt yok, üyelik yok, limit yok
+- **SEO Dostu** — Schema.org, FAQ, Breadcrumb, Sitemap, robots.txt
+- **Google Analytics** — Canlı trafik takibi
+- **Google AdSense** — Reklam geliri için hazır
+
+## 🛠️ Kategoriler
+
+| Kategori | Araç Sayısı |
+|---------|-----------|
+| 📏 Birim Çevirici | 200+ (uzunluk, ağırlık, sıcaklık, hacim, hız, basınç, enerji, veri...) |
+| 🧮 Hesaplama | 50+ (yüzde, indirim, kredi, KDV, faiz, ortalama, geometri...) |
+| ✏️ Metin Araçları | 40+ (karakter sayacı, harf dönüştürücü, metin düzenleyici...) |
+| 🔒 Şifre & Güvenlik | 20+ (şifre üretici, hash, şifreleme, şifre testi...) |
+| 💻 Kodlama | 30+ (JSON, Base64, Hex, HTML, URL, CSV dönüşümleri...) |
+| 🎨 Renk Araçları | 20+ (HEX/RGB/HSL/CMYK/HSV dönüşüm, palet, gradyan...) |
+| 🔢 Sayı & Matematik | 30+ (faktöriyel, fibonacci, asal sayı, EBOB/EKOK...) |
+| 📅 Tarih & Saat | 15+ (yaş hesapla, tarih farkı, geri sayım, saat dilimi...) |
+| 🎲 Rastgele Veri | 20+ (UUID, isim, email, IP, şifre, takım oluşturucu...) |
+| ❤️ Sağlık & Fitness | 20+ (BMI, BMR, TDEE, kalori, su, uyku, gebelik...) |
+| 🌐 İnternet & Network | 15+ (IP, subnet, DNS, port, HTTP status...) |
+| 🛠️ Geliştirici | 15+ (QR kod, CSS aracı, regex test, meta tag oluşturucu...) |
+| 🎮 Eğlence | 15+ (yazı-tura, zar, fal, şaka, bilgi yarışması...) |
+| 💰 Finans | 25+ (kur çevirici, kredi, faiz, emeklilik, bütçe...) |
+| 📚 Eğitim | 15+ (fizik hesapları, not hesaplama, çarpım tablosu...) |
+
+## 🚀 Kullanım
+
+1. [arackutusu.github.io](https://arackutusu.github.io/) adresine git
+2. Arama kutusuna aradığın aracı yaz veya kategori seç
+3. İstediğin araca tıkla, hemen kullanmaya başla
+
+Hiçbir kurulum gerekmez — direkt çalışır.
+
+## 📁 Dosya Yapısı
+
+```
+├── index.html      # Ana sayfa (SEO meta etiketleri, AdSense, yapısal veri)
+├── style.css       # Tüm stiller (karanlık/aydınlık mod, responsive)
+├── script.js       # Uygulama mantığı ve 40+ araç render fonksiyonu
+├── tools.js        # 1000 araç tanımı ve veri yapısı
+├── sitemap.xml     # XML site haritası
+├── robots.txt      # Arama motoru yönergeleri
+└── README.md       # Bu dosya
 ```
 
-### Vercel (Önerilen)
-```bash
-# vercel.com'a git, GitHub ile bağlan, repo'yu seç, deploy et
-```
+## 📊 SEO & Analitik
 
-### Netlify
-```bash
-# netlify.com'a git, repo'yu bağla veya manuel yükle
-```
+- Google Search Console doğrulaması hazır
+- Google Analytics (GA4) entegrasyonu mevcut
+- Schema.org WebApplication + FAQ + Breadcrumb yapısal verileri
+- XML sitemap ve robots.txt
+- Dinamik sayfa başlığı ve meta açıklama (her araç için benzersiz)
+- Open Graph ve Twitter Card meta etiketleri
 
-## Dosya Yapısı
-```
-├── index.html   # Ana sayfa
-├── style.css    # Stil dosyası
-├── script.js    # Tüm araçların JS kodları
-└── README.md    # Bu dosya
-```
+## 💰 Para Kazanma
 
-## Lisans
+Site Google AdSense için optimize edilmiştir. Reklam yerleşimleri:
+- Ana sayfa üst ve alt
+- Her araç sayfası üst ve alt
+- Multiplex (autorelaxed) formatı
+
+AdSense onayı aldıktan sonra reklamlar otomatik görüntülenmeye başlar.
+
+## ⚡ Performans
+
+- Preconnect ve DNS-prefetch optimizasyonları
+- Preload kritik kaynaklar
+- Minimal CSS (76 satır)
+- Lazy-load script yükleme
+- Google Fonts (Inter) ile hızlı tipografi
+
+## 👨‍💻 Geliştirici
+
+AraçKutusu tamamen **vanilla JavaScript** ile yazılmıştır. Hiçbir framework bağımlılığı yoktur. Tüm araçlar **istemci tarafında** (client-side) çalışır, verileriniz asla sunucuya gönderilmez.
+
+## 📄 Lisans
+
 MIT
