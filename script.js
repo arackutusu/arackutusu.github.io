@@ -64,10 +64,12 @@ function openTool(id) {
             <h2>${tool.icon} ${tool.title}</h2>
             <p>${tool.desc}</p>
         </div>
-        <div class="ad-placeholder"><div class="ad-label">Reklam</div><div class="ad-content"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7847705061926743" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div>
+        <div class="ad-placeholder"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins></div></div>
         <div class="tool-body" id="toolBody"></div>
-        <div class="ad-placeholder" style="margin-top:20px"><div class="ad-label">Reklam</div><div class="ad-content"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7847705061926743" crossorigin="anonymous"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div>
+        <div class="ad-placeholder" style="margin-top:20px"><div class="ad-label">Reklam</div><div class="ad-content"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-7847705061926743" data-ad-slot="XXXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins></div></div>
     `;
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+    try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
     const renderFn = window[tool.renderer];
     if (typeof renderFn === 'function') renderFn(tool.params);
     else document.getElementById('toolBody').innerHTML = `<div class="result-box">Bu araç hazırlanıyor...</div>`;
