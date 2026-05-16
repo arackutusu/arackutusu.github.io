@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ücretsiz online araçlar - Karakter sayacı, şifre oluşturucu, QR kod, birim dönüştürücü ve daha fazlası.">
-    <meta name="keywords" content="online araçlar, karakter sayacı, şifre oluşturucu, QR kod, birim dönüştürücü, ücretsiz araçlar">
-    <title>AraçKutusu - Ücretsiz Online Araçlar</title>
+    <title>AraçKutusu - 1000+ Ücretsiz Online Araç | Hızlı ve Kolay Kullanım</title>
+    <meta name="description" content="1000'den fazla ücretsiz online araç: karakter sayacı, şifre oluşturucu, QR kod, birim dönüştürücü, yaş hesaplayıcı, JSON formatlayıcı, Base64 dönüştürücü, renk paleti ve daha fazlası.">
+    <meta name="keywords" content="online araçlar, ücretsiz araçlar, karakter sayacı, şifre oluşturucu, QR kod, birim dönüştürücü, yaş hesaplayıcı, json formatla, base64 dönüştür, renk paleti, metin dönüştürücü, hesaplama araçları, çeviri araçları">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="AraçKutusu">
+    <meta name="language" content="Turkish">
+    <meta property="og:title" content="AraçKutusu - 1000+ Ücretsiz Online Araç">
+    <meta property="og:description" content="Günlük işlerinizi hızlıca halledin. Karakter sayacı, şifre oluşturucu, birim dönüştürücü ve 1000'den fazla araç ücretsiz.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tunadiyebiri.github.io/">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AraçKutusu - 1000+ Ücretsiz Online Araç">
+    <meta name="twitter:description" content="Günlük işlerinizi hızlıca halledin. 1000'den fazla ücretsiz online araç.">
+    <link rel="canonical" href="https://tunadiyebiri.github.io/">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "AraçKutusu",
+        "url": "https://tunadiyebiri.github.io/",
+        "description": "1000+ ücretsiz online araç koleksiyonu",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "JavaScript",
+        "inLanguage": "tr",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TRY" }
+    }
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7847705061926743" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
 </head>
 <body>
     <header class="header">
@@ -17,42 +45,45 @@
                 <a href="/" class="logo">Araç<span>Kutusu</span></a>
                 <div class="nav-actions">
                     <button id="themeToggle" class="theme-btn" aria-label="Tema değiştir">&#9790;</button>
-                    <button id="menuToggle" class="menu-btn" aria-label="Menü">&#9776;</button>
                 </div>
             </nav>
             <div class="hero">
-                <h1>Online Araçlar</h1>
-                <p>Günlük işlerini hızlıca hallet. Her araç ücretsiz, reklamsız ve hızlı.</p>
+                <h1>1000+ Ücretsiz Online Araç</h1>
+                <p>Karakter sayacı, şifre oluşturucu, QR kod, birim dönüştürücü ve daha fazlası. Her araç ücretsiz ve hızlı.</p>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <div class="ad-placeholder" id="adTop">
-            <div class="ad-label">Reklam</div>
-            <div class="ad-content">AdSense buraya eklenecek</div>
+        <div class="ad-placeholder" id="adTop"><div class="ad-label">Reklam</div><div class="ad-content">AdSense buraya eklenecek</div></div>
+
+        <div class="toolbar" id="toolbar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Araç ara (örn: şifre, çevirici, hesapla...)" oninput="filterTools()">
+                <span class="search-icon">&#128270;</span>
+            </div>
+            <div class="category-filters" id="categoryFilters"></div>
+            <div class="tool-count" id="toolCount"></div>
         </div>
 
         <div class="tools-grid" id="toolsGrid"></div>
 
         <div class="tool-detail" id="toolDetail" style="display:none">
-            <button class="back-btn" id="backBtn">&larr; Geri</button>
+            <button class="back-btn" id="backBtn">&larr; Tüm Araçlar</button>
             <div id="toolContent"></div>
         </div>
 
-        <div class="ad-placeholder" id="adBottom">
-            <div class="ad-label">Reklam</div>
-            <div class="ad-content">AdSense buraya eklenecek</div>
-        </div>
+        <div class="ad-placeholder" id="adBottom"><div class="ad-label">Reklam</div><div class="ad-content">AdSense buraya eklenecek</div></div>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2026 AraçKutusu. Tüm hakları saklıdır.</p>
+            <p>&copy; 2026 AraçKutusu &mdash; 1000+ ücretsiz online araç</p>
         </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="tools.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
